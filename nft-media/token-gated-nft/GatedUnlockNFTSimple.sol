@@ -25,17 +25,17 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 /*
-Contract UnlockNFTSimple is a standard ERC721 contract generated
+Contract UnlockNFT is a standard ERC721 contract generated
 using the OpenZeppelin Contract Wizard. The only extra features added
 are the "Mintable" feature and Auto Increment Ids feature. The point
 is, there is nothing special about the Unlock NFT itself.
  */
-contract UnlockNFTSimple is ERC721, Ownable {
+contract UnlockNFT is ERC721, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
     
-    constructor() ERC721("UnlockNFTSimple", "UNFTS") {}
+    constructor() ERC721("UnlockNFT", "UNFT") {}
 
     function safeMint(address to) public {
         uint256 tokenId = _tokenIdCounter.current();
@@ -45,28 +45,31 @@ contract UnlockNFTSimple is ERC721, Ownable {
 }
 
 /*
-Contract GatedNFTSimple includes standard ERC721 functionality, but
+Contract GatedNFT includes standard ERC721 functionality, but
 with some custom code in the mint() function that requires a minter
-to own at least one UNFTS before they are able to mint a GNFTS
+to own at least one UNFT before they are able to mint a GNFT.
 */
-contract GatedNFTSimple is ERC721, Ownable {
+contract GatedNFT is ERC721, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
-    address private _UNFTSContractAddress;
 
-    constructor() ERC721("GatedNFTSimple", "GNFTS") {}
+    // a state variable to store the unlock NFT contract address
+    address private _UNFTContractAddress;
 
-    // when you call the mint
+    constructor() ERC721("GatedNFT", "GNFT") {}
+
     function safeMint(address to) public {
-        require(_UNFTSContractAddress != 0x0000000000000000000000000000000000000000,
-                "The UnlockNFTSimple contract address has not been set"
+
+        // make sure the unlock NFT contract address has been set
+        require(_UNFTContractAddress != 0x0000000000000000000000000000000000000000,
+                "The UnlockNFT contract address has not been set"
                 );
         
-        UnlockNFTSimple _unftsContract = UnlockNFTSimple(_UNFTSContractAddress);
-        // check that the minter's balance of UNFTS is greater than 1
-        require(_unftsContract.balanceOf(msg.sender) > 0,
-                "Need an UnlockNFTSimple in order to mint"
+        UnlockNFT _unftContract = UnlockNFT(_UNFTContractAddress);
+        // check that the minter's balance of UNFT is greater than 1
+        require(_unftContract.balanceOf(msg.sender) > 0,
+                "Need an UnlockNFT in order to mint"
                 );
 
         uint256 tokenId = _tokenIdCounter.current();
@@ -74,17 +77,19 @@ contract GatedNFTSimple is ERC721, Ownable {
         _safeMint(to, tokenId);
     }
 
+    // sets the unlock NFT contract address
     function setUnlockNFTSContractAddress(address _contractAddress)
         public
         onlyOwner {
-        _UNFTSContractAddress = _contractAddress;
+        _UNFTContractAddress = _contractAddress;
     }
 
+    // returns the address of the unlock NFT contract
     function getUnlockNFTSContractAddress()
         public
         view
         returns (address) {
-        return _UNFTSContractAddress;
+        return _UNFTContractAddress;
     }
 }
 
