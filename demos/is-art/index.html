@@ -8,6 +8,11 @@
   <script src="https://code.jquery.com/jquery-3.6.1.min.js"
     integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
   <script src="https://cdn.ethers.io/lib/ethers-5.6.umd.min.js" type="application/javascript"></script>
+  
+  <script src="abi.js" defer></script>
+  <script src="main.js" defer></script>
+  
+  <link rel="stylesheet" href="style.css">
   <title>Is this Contract Art?</title>
 </head>
 
@@ -19,102 +24,6 @@
     <p>This contract (<span id="contractAddress"></span>) is <span id="status"></span></p>
   </div>
   <button id="changeStatus">Change Status</button>
-
-
-  <script>
-    
-    // change this each time you deploy a new contract
-    const contractAddress = "0x6474a7d3cc89E3aB7467dE9048fd33BBaC59a3D3";
-
-    // paste contract ABI here
-    const contractABI = [
-      {
-        "inputs": [],
-        "name": "changeStatus",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "getStatus",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "isArt",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      }
-    ]
-
-   
-
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    
-    // the person signed into metamask is the 'signer'
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(contractAddress, contractABI, provider);
-
-    $('#contractAddress').text(contractAddress);
-
-    getStatus();
-
-    $('#changeStatus').click(function() {
-      changeStatus();
-    })
-
-    setInterval(function(){
-      getStatus();
-    }, 2000);
-
-    async function getStatus() {
-      const artStatus = await contract.getStatus();
-
-      // console.log(artStatus)
-
-      if(artStatus) {
-        $('#status').text('art');
-      } else {
-        $('#status').text('not art');
-      }
-
-      return artStatus;
-    }
-
-    async function changeStatus() {
-      // MetaMask requires requesting permission to connect users accounts
-      await provider.send("eth_requestAccounts", []);
-
-      const tokenWithSigner = contract.connect(signer);
-
-      tokenWithSigner.changeStatus();
-    }
-      
-
-      
-
-   
-
-
-
-
-  </script>
 </body>
 
 </html>
