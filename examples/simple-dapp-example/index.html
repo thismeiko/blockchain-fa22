@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.ethers.io/lib/ethers-5.6.umd.min.js"
+        type="application/javascript"></script>
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+  <script src="abi.js" defer></script>
+  <script src="main.js" defer></script>
+
+  <link rel="stylesheet" href="style.css">
+        
+  <title>Simple Dapp</title>
+</head>
+<body>
+  <h1>Simple Dapp</h1>
+  
+  <label for="numInput">Enter Number to set:</label>
+  <!-- This input element is the text box where users
+  enter a the number they want to set -->
+  <input type="text" name="numInput" id="numInput">
+
+  <p>Current Number: <span id="currentNum"></span></p>
+  
+  <button id="getNum">Get Number</button>
+  <button id="setNum">Set Number</button>
+  
+</body>
+</html>
