@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="lib/ethers-5.6.umd.min.js"></script>
+  <script src="abi.js" defer></script>
+  <script src="main.js" defer></script>
+
+  <link rel="stylesheet" href="style.css">
+  <title>Text NFT</title>
+</head>
+
+<body>
+  <h1>Text NFT</h1>
+  <p><strong>Description:</strong> Mint an NFT with custom text.</p>
+
+  <hr>
+
+  <!-- dApp begins here -->
+
+  <button id="connectButton">Connect</button>
+  <p>Connect to interact with this dApp</p>
+
+  <br>
+
+  <input type="text" name="textInput" id="textInput" placeholder="Enter new text (32 char max)" maxlength="32">
+  <button for="textInput" id="textInputButton">Mint</button>
+
+  <br>
+  <br>
+  <input type="text" name="tokenIdInput" id="tokenIdInput" placeholder="Enter Token ID">
+  <button for="tokenIdInput" id="tokenIdInputButton">Check URI</button>
+  <p>Token URI: <span id="uriDisplay"></span></p>
+
+  <p>Last Minted Text: <span id="textDisplay"></span></p>
+</body>
+
+</html>

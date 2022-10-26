@@ -11,7 +11,7 @@ contract NFTImage is ERC721, ERC721URIStorage, Ownable {
 
     Counters.Counter private _tokenIdCounter;
 
-    constructor() ERC721("NFT", "BLOB") {}
+    constructor() ERC721("NFT Image", "NFTIMG") {}
 
     event MintEvent(string _message, uint256 _tokenId);
 
