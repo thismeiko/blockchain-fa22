@@ -3,7 +3,6 @@
 const CONNECT_AUTOMATICALLY = true;
 
 if(CONNECT_AUTOMATICALLY) {
-  connectButton.setAttribute("disabled", "true");
   main();
 } else {
   connectButton.onclick = main;
@@ -108,6 +107,9 @@ async function main() {
   // Disable the 'Connect' button once the user is connected so they can't click on it again
   connectButton.setAttribute("disabled", "true");
 
+  // Enable the 'Increase Number' button now that the user can execute transactions
+  increaseNumButton.removeAttribute("disabled");
+
   // Store the Signer (the account signed in to MetaMask) in a variable
   const signer = provider.getSigner();
 
@@ -159,13 +161,16 @@ async function main() {
 
   // contract event: emits when NumIncreasedEvent is emitted by contract. This event triggers when the user increases the num in the contract
   contract.on("NumIncreasedEvent", (message, newNumber) => {
-
+    console.log(message);
     // update the text of the span with id "currentNumberDisplay" to the new number
     currentNumberDisplay.textContent = newNumber;
+
+    // show the updated balance after paying the transaction fee
+    displayBalance();
   });
 
   // click the button with id 'increaseNumButton' to increase num 
-  increaseNumButton.addEventListener('click', increaseNumber)
+  increaseNumButton.onclick = increaseNumber;
 
 
   ////////////// FUNCTIONS ///////////////////

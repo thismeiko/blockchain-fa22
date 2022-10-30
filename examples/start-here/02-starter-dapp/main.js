@@ -1,14 +1,14 @@
-// CONNECT_AUTOMATICALLY = true to automatically connect to Web3 Provider on page load.
-// CONNECT_AUTOMATICALLY = false to enable "click to connect" button
+/* CONNECT_AUTOMATICALLY
+  true: automatically connect to Web3 Provider on page load.
+  false: enable "click to connect" button
+*/
 const CONNECT_AUTOMATICALLY = true;
 
 if(CONNECT_AUTOMATICALLY) {
-  connectButton.setAttribute("disabled", "true");
   main();
 } else {
   connectButton.onclick = main;
 }
-
 
 async function main() {
 
@@ -73,6 +73,7 @@ async function main() {
   connectionStatus.textContent = "🟢 Connected";
 
   connectButton.setAttribute("disabled", "true");
+  increaseNumButton.removeAttribute("disabled");
 
   // (REQUIRED) Store the Signer in a variable
   const signer = provider.getSigner();
@@ -121,11 +122,14 @@ async function main() {
 
   // triggers when the user increases the num
   contract.on("NumIncreasedEvent", (message, newNumber) => {
+    console.log(message);
     currentNumberDisplay.textContent = newNumber;
-    displayBalance()
+
+    // show the updated balance after paying the transaction fee
+    displayBalance();
   });
 
-  increaseNumButton.addEventListener('click', increaseNumber)
+  increaseNumButton.onclick = increaseNumber;
 
 
   ////////////// FUNCTIONS ///////////////////
