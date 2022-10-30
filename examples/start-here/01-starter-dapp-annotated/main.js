@@ -61,9 +61,16 @@ async function main() {
   const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
 
 
+  // If the network changes, refresh the page. (e.g. the user switches from mainnet to goerli)
+  provider.on("network", (newNetwork, oldNetwork) => {
+    if (oldNetwork) {
+        window.location.reload();
+    }
+  });
 
-  // Request to connect current wallet to the dApp
+  
   try {
+    // (REQUIRED) Request to connect current wallet to the dApp
     await provider.send("eth_requestAccounts", []);
   } catch(error) {
     const errorMessage = "Cannot connect to wallet. There might be an issue with another browser extenstion. Try disabling some browser extensions (other than MetaMask), then attempt to reconnect."
@@ -84,14 +91,15 @@ async function main() {
   // 80001 - Mumbai (Polygon Testnet)
   const chainId = await provider.getNetwork();
   if(chainId.chainId != 5) {
-    alert("Please switch to the Goerli Test Network in MetaMask, then refresh the page.");
+    alert("Please switch to the Goerli Test Network in MetaMask. The page will refresh automatically after switching.");
     loadingIconConnect.style.display = "none";
+    increaseNumButton.setAttribute("disabled", "true");
     return;
   }
   console.log("Connected to Goerli");
 
 
-
+  // AT THIS POINT, THE USER SHOULD BE SUCCESSFULLY CONNECTED TO THE DAPP
 
   
   // Update the page to show the user is connected
@@ -135,15 +143,8 @@ async function main() {
   // Once all the above connection steps have completed, hide the loading icon.
   loadingIconConnect.style.display = "none";
 
-  // Periodically check and update user's balance on the page 
-  setInterval(displayBalance, 5000);
 
-  // If the network changes, refresh the page. (e.g. the user switches from mainnet to goerli)
-  provider.on("network", (newNetwork, oldNetwork) => {
-    if (oldNetwork) {
-        window.location.reload();
-    }
-  });
+  
 
   //----------------------------------------------------//
   //-----------ADD YOUR CODE BELOW THIS LINE------------//
@@ -156,7 +157,7 @@ async function main() {
 
   //////////// EVENT LISTENERS ////////////////
 
-  // contract event: emits when NumIncreasedEvent is emitted by contract
+  // contract event: emits when NumIncreasedEvent is emitted by contract. This event triggers when the user increases the num in the contract
   contract.on("NumIncreasedEvent", (message, newNumber) => {
 
     // update the text of the span with id "currentNumberDisplay" to the new number

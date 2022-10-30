@@ -1,7 +1,5 @@
-// The address to the smart contract. The contract must be deployed to a public blockchain (test or otherwise) in order to be accessed through a website
 var contractAddress = "0x6c6Ea96A087D9E6CFfe8718c2c3377c53eDBaDA6";
 
-// The ABI (Application Binary Interface) is a standardized list of the functions in our contract. The ABI allows our website to execute the functions written in the smart contract.
 var contractABI = [
 	{
 		"anonymous": false,
