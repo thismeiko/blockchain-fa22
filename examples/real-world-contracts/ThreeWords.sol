@@ -30,6 +30,8 @@ contract ThreeWords is
 
     address payable public multisig;
     address payable DRIBNET = payable(0x370433a205B84839B507420B8E22900BAb902a8b);
+
+    // addresses of the developers who contributed to the project
     address dev1 = 0x8E9da8Ac8643D24Fb19B70Afe563fdE2eC7A7DeC;
     address dev2 = 0xEf3c42eB484aE448CBbE4391D3CC4E16AAaB0d24;
     address dev3 = 0x01f81279Fec131a3E2fa7a61C429cf953d8f3f83;
