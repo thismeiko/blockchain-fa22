@@ -92,26 +92,50 @@ contract ThreeWords is
         public
         payable
     {
+        // make sure each word is less than 16 characters long
         require (bytes(_word1).length <= 16 && bytes(_word2).length <= 16 && bytes(_word3).length <= 16, "words must be less than 16 bytes");
         address receiver = _msgSender();
         bool receiverIsDev = (receiver == dev1 || receiver == dev2 || receiver == dev3);
+        // make sure enough payment is going through
         require (msg.value >= PRICE, "must pay mint fee");
+
+        // make sure the developers don't mint more than they're allowed to mint
         if (receiverIsDev) {
             require (_devReserveTracker.current() < DEV_RESERVED, "multisig cannot mint more than reserve amount");
             _devReserveTracker.increment();
         }
+        // payment + royalties
         uint256 multisigFee = msg.value - ROYALTY_PRICE;
+        // pay DRIBNET 3%
         DRIBNET.call{value: ROYALTY_PRICE}("");
+        // pay the rest to the creators of the project (their multisig wallet)
         multisig.call{value: multisigFee}("");
+
+        // make sure we don't mint more than the max supply of 333
         require(_tokenIdTracker.current() - 1 + DEV_RESERVED - _devReserveTracker.current() < MAX_SUPPLY, "max supply reached"); // - 1 because tokenIdTracker.current starts at 1
+
+
+        // create a unique hash of the 3 words combined
         bytes32 phraseId = wordsToPhraseId(_word1, _word2, _word3);
+
+        // tokenId of 0 is the default id if something doesn't exist in the mapping. If your phraseId returns 0, that means it is unique, because it doesn't already have a different tokenId associated with it.
         require(_phraseIdToTokenId[phraseId] == 0, "phrase already minted"); // this is why we start tokenid at 1
+
+        // set the tokenId to the "next" token Id number. 
         uint256 tokenId = _tokenIdTracker.current();
+
+        // update records of which token id is associated with which phrase
         _phraseIdToTokenId[phraseId] = tokenId;
         _tokenIdToPhraseId[tokenId] = phraseId;
         _tokenIdToWords[tokenId] = [_word1, _word2, _word3];
+
         _mint(receiver, tokenId);
+
+        // increment the tokenId for the next minter
         _tokenIdTracker.increment();
+        // emit words so that javascript elsewhere can do things with them like...
+        // 1. generate the image with the text-to-image AI tool created by Dribnet
+        // 2. create the metadata json file associated with the tokenId.
         emit Mint(phraseId, tokenId, _word1, _word2, _word3);
     }
 }
