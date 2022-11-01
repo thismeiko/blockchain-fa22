@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="lib/ethers-5.6.umd.min.js"></script>
+  <script src="main.js" defer></script>
+
+  <link rel="stylesheet" href="style.css">
+  <title>Class wallet address</title>
+</head>
+
+<body>
+  <h1>Class wallet addresses</h1>
+
+  <!-- Website begins here -->
+
+  <div class="button-container">
+    <button id="connectButton">Connect</button>
+    <span id="loadingIconConnect" class="loading-icon"></span>
+  </div>
+  
+  <p>
+    <strong>Connection Status:</strong> <span id="connectionStatus">🔴 Not connected</span>
+  </p>
+  
+  <table id="balancesTable">
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Balance</th>
+    </tr>
+    
+  </table>
+
+</html>
