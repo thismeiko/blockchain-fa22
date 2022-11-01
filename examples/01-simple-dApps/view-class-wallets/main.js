@@ -97,6 +97,7 @@ async function main() {
 
   // A function to display balances of various wallet addresses
   async function displayBalances() {
+
     const ADDRESSES = [
       "0x80b6De9D077977798f357260F30b985dC7F1Bbb2",
       "0xafEe23Daf894eb23fA0d779948E60e220A9B081e",
@@ -111,9 +112,8 @@ async function main() {
       "0xBF2CB372d7E68eFf2f282333a2A3D48f9df5f556",
       "0xb6D6023344a1542b91187Eec57CCf3567753f425",
       "0x93C7c698337Ea5aB489C1a99bed25950d5eF4526",
-      "0x579CcFE70Cd387034F6B4548Fc09744B2B9b9804",
       "0x5d6aaDBC195a3fc3CFa8697c46Bf62Ae1B7B29f3",
-      "0x8136f4A2171c0c3E0e10C77FD894E84bEff980cE",
+      "0x8136f4A2171c0c3E0e10C77FD894E84bEff980cE"
     ]
   
     const NAMES = [
@@ -130,7 +130,6 @@ async function main() {
       "Meiko",
       "Yimei",
       "Ezekiel",
-      "Mary",
       "Andjela",
       "Juliana"
     ]
@@ -162,9 +161,6 @@ async function main() {
       tableRow.appendChild(balanceCell)
 
       balancesTable.appendChild(tableRow);
-      console.log(name, address, balance)
     }
   }
-
-  
 }
