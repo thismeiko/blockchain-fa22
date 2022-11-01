@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="lib/ethers-5.6.umd.min.js"></script>
+  <script src="abi.js" defer></script>
+  <script src="main.js" defer></script>
+
+  <link rel="stylesheet" href="style.css">
+  <title>Starter dApp</title>
+</head>
+
+<body>
+  <h1>Starter dApp</h1>
+  <p><strong>Description:</strong> Pay a small transaction fee to increase a number stored in a smart contract. This contract was deployed on the Goerli Ethereum test network. View the contract on Etherscan here: <a href="https://goerli.etherscan.io/address/0x6c6Ea96A087D9E6CFfe8718c2c3377c53eDBaDA6#code" target="_blank">https://goerli.etherscan.io/address/0x6c6Ea96A087D9E6CFfe8718c2c3377c53eDBaDA6</a>.</p>
+
+  <hr>
+
+  <!-- Website begins here -->
+
+  <div class="button-container">
+    <button id="connectButton">Connect</button>
+    <span id="loadingIconConnect" class="loading-icon"></span>
+  </div>
+  
+  <p>
+    <strong>Connection Status:</strong> <span id="connectionStatus">🔴 Not connected</span>
+  </p>
+  <p>
+    <strong>Connected Wallet:</strong> <span id="connectedWallet">[No wallet connected]</span>
+  </p>
+
+  <br>
+
+  
+
+  <div class="button-container">
+    <input type="text" name="textInput" id="textInput" placeholder="Enter new text (32 char max)" maxlength="32">
+    <button id="textInputButton">Mint</button>
+    <span id="loadingIconInputButton" class="loading-icon"></span>
+  </div>
+  
+  <br>
+  <br>
+
+  <input type="text" name="tokenIdInput" id="tokenIdInput" placeholder="Enter Token ID">
+  <button id="tokenIdInputButton">Check URI</button>
+    
+  <p>Token URI: <span id="uriDisplay"></span></p>
+
+  <p>Last Minted Text: <span id="textDisplay"></span></p>
+  
+</body>
+
+</html>
