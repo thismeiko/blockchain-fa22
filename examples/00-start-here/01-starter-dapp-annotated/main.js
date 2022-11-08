@@ -1,6 +1,6 @@
 // Set CONNECT_AUTOMATICALLY to 'true' to automatically connect to Web3 Provider on page load. (main() will be called automatically when the page loads)
 // Set CONNECT_AUTOMATICALLY to 'false' to enable "click to connect" button. (main() will be called when user clicks 'Connect' button)
-const CONNECT_AUTOMATICALLY = true;
+const CONNECT_AUTOMATICALLY = false;
 
 if(CONNECT_AUTOMATICALLY) {
   main();
